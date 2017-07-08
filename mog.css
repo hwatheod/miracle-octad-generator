@@ -1,0 +1,50 @@
+.square {
+    float: left; /* using display:inline-block gives weird behavior when you shrink the window width on the browser */
+    position: relative;
+    width: 15%;
+    padding-bottom: 15%; /* = width for a 1:1 aspect ratio */
+    margin:0.5%;
+}
+
+.innerSquare {
+    position: absolute;
+    height: 40%; /* = 100 - 2*30% padding */
+    width: 40%;
+    padding: 30% 30%;
+}
+
+.table {
+    display: table;
+    height: 100%;
+    width: 100%;
+}
+.table-cell {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    height: 100%;
+    width: 100%;
+}
+
+.orbitClass {
+    width: 100%;
+    text-align: center;
+}
+
+.mog {
+    width: 40%;
+    margin: auto;
+}
+
+.clear {
+    clear: both;
+}
+
+.footer {
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   height: 20px;
+   width: 100%;
+   background: cyan;
+}

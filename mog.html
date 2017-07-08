@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8"/>
+    <title>Miracle Octad Generator</title>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.0.min.js"></script>
+    <script type="text/javascript" src="hexacode.js"></script>
+    <script type="text/javascript" src="mog.js"></script>
+    <script type="text/javascript" src="mogPanel.js"></script>
+    <link rel="stylesheet" type="text/css" href="mog.css">
+</head>
+<body>
+<H2>MOG (Miracle Octad Generator)</H2>
+
+<P>This page provides a tool for exploring the <A HREF="http://en.wikipedia.org/wiki/Binary_Golay_code">binary Golay code</A> and
+    its automorphism group <A HREF="http://en.wikipedia.org/wiki/Mathieu_group"><I>M<sub>24</sub></I></A> in its standard representation
+    on 24 objects, using Curtis' <A HREF="http://planetmath.org/encyclopedia/MiracleOctadGenerator.html">Miracle Octad Generator</A> (MOG).
+    It is inspired by a <A HREF="http://nickerson.org.uk/groups/moggie/">similar page</A> by Simon Nickerson.  The MOG is described in
+    detail in Chapter 11 of the book <A HREF="http://books.google.com/books?isbn=0387985859"><I>Sphere Packings, Lattices and Groups</I></A>
+    by Conway and Sloane (hereafter abbreviated SPLAG).  Below the tool is a summary of the theory and a description of the orbit
+    classifications.</P>
+
+<P>You can click the squares to select/unselect any subset of the 24 positions in the MOG.  The label at the top shows the classification label of the current
+subset, using the notation described below as well as in SPLAG, Ch. 10, section 2.6.  The buttons perform the following operations:</P>
+<UL>
+<LI> Complete - given 5 squares in the MOG, shows the 3 additional squares that completes the given squares to an octad.  This completion is always unique, because
+the octads of the MOG form a (24,8,5) Steiner system. </LI>
+<LI> Clear - clears all selected squares. </LI>
+<LI> Complement - toggles the selected/unselected status of all squares, replacing a subset of the MOG with its complement. </LI>
+<LI> Sextet - given 4 squares in the MOG (a tetrad), shows the other 5 tetrads (in different colors) that completes the given tetrad to a sextet.  A sextet has the
+property that the union of any 2 tetrads form an octad. </LI>
+<LI> Dual Rep. - Gives a subset of size at most 4 congruent (modulo a Golay codeword) to the current subset.  The resulting subset is uniquely determined except in the
+case of a subset of size 4, when it may be any of the six tetrads of a sextet.</LI>
+<LI> Orbit - given any subset <I>S</I> of the MOG, shows the orbits of the set stabilizer of <I>S</I> in <I>M<sub>24</sub></I>.  Each orbit is given a different color.  The label on a square indicates the classification label of the subset that would result if that square were added to or removed from <I>S</I>.  An asterisk marks squares in <I>S</I>.</LI>
+<LI> Block - in addition to the information provided by Orbit, this also provides the block decomposition of each orbit with a smaller colored square at the center of each square.  This button is only active for subsets of size at most 12 for which the action of the stabilizer is imprimitive.  For the class <I>T<sub>10</sub></I>, the orbit of size 12 has two block decompositions (3 blocks of size 4, and 4 blocks of size 3); only the latter is currently shown.</LI>
+</UL>
+
+<div class="mog">
+    <div class="orbitClass" id="orbitClass">
+        S0
+    </div>
+    <div class="clear"></div>
+
+    <div class="square" onclick="clickSquare(0,0)" id="mog_0_0">
+        <div class="innerSquare">
+            <div class="table">
+                <div class="table-cell" id="inner_0_0">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="square" onclick="clickSquare(1,0)" id="mog_1_0">
+        <div class="innerSquare">
+            <div class="table">
+                <div class="table-cell" id="inner_1_0">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="square" onclick="clickSquare(2,0)" id="mog_2_0">
+        <div class="innerSquare">
+            <div class="table">
+                <div class="table-cell" id="inner_2_0">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="square" onclick="clickSquare(3,0)" id="mog_3_0">
+        <div class="innerSquare">
+            <div class="table">
+                <div class="table-cell" id="inner_3_0">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="square" onclick="clickSquare(4,0)" id="mog_4_0">
+        <div class="innerSquare">
+            <div class="table">
+                <div class="table-cell" id="inner_4_0">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="square" onclick="clickSquare(5,0)" id="mog_5_0">
+        <div class="innerSquare">
+            <div class="table">
+                <div class="table-cell" id="inner_5_0">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="square" onclick="clickSquare(0,1)" id="mog_0_1">
+        <div class="innerSquare">
+            <div class="table">
+                <div class="table-cell" id="inner_0_1">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="square" onclick="clickSquare(1,1)" id="mog_1_1">
+        <div class="innerSquare">
+            <div class="table">
+                <div class="table-cell" id="inner_1_1">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="square" onclick="clickSquare(2,1)" id="mog_2_1">
+        <div class="innerSquare">
+            <div class="table">
+                <div class="table-cell" id="inner_2_1">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="square" onclick="clickSquare(3,1)" id="mog_3_1">
+        <div class="innerSquare">
+            <div class="table">
+                <div class="table-cell" id="inner_3_1">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="square" onclick="clickSquare(4,1)" id="mog_4_1">
+        <div class="innerSquare">
+            <div class="table">
+                <div class="table-cell" id="inner_4_1">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="square" onclick="clickSquare(5,1)" id="mog_5_1">
+        <div class="innerSquare">
+            <div class="table">
+                <div class="table-cell" id="inner_5_1">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="square" onclick="clickSquare(0,2)" id="mog_0_2">
+        <div class="innerSquare">
+            <div class="table">
+                <div class="table-cell" id="inner_0_2">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="square" onclick="clickSquare(1,2)" id="mog_1_2">
+        <div class="innerSquare">
+            <div class="table">
+                <div class="table-cell" id="inner_1_2">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="square" onclick="clickSquare(2,2)" id="mog_2_2">
+        <div class="innerSquare">
+            <div class="table">
+                <div class="table-cell" id="inner_2_2">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="square" onclick="clickSquare(3,2)" id="mog_3_2">
+        <div class="innerSquare">
+            <div class="table">
+                <div class="table-cell" id="inner_3_2">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="square" onclick="clickSquare(4,2)" id="mog_4_2">
+        <div class="innerSquare">
+            <div class="table">
+                <div class="table-cell" id="inner_4_2">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="square" onclick="clickSquare(5,2)" id="mog_5_2">
+        <div class="innerSquare">
+            <div class="table">
+                <div class="table-cell" id="inner_5_2">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="square" onclick="clickSquare(0,3)" id="mog_0_3">
+        <div class="innerSquare">
+            <div class="table">
+                <div class="table-cell" id="inner_0_3">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="square" onclick="clickSquare(1,3)" id="mog_1_3">
+        <div class="innerSquare">
+            <div class="table">
+                <div class="table-cell" id="inner_1_3">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="square" onclick="clickSquare(2,3)" id="mog_2_3">
+        <div class="innerSquare">
+            <div class="table">
+                <div class="table-cell" id="inner_2_3">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="square" onclick="clickSquare(3,3)" id="mog_3_3">
+        <div class="innerSquare">
+            <div class="table">
+                <div class="table-cell" id="inner_3_3">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="square" onclick="clickSquare(4,3)" id="mog_4_3">
+        <div class="innerSquare">
+            <div class="table">
+                <div class="table-cell" id="inner_4_3">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="square" onclick="clickSquare(5,3)" id="mog_5_3">
+        <div class="innerSquare">
+            <div class="table">
+                <div class="table-cell" id="inner_5_3">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <input type="button" onclick="complete()" value="Complete" id="complete"><br>
+    <input type="button" onclick="clearAll()" value="Clear" id="clear"><br>
+    <input type="button" onclick="complement()" value="Complement" id="complement"><br>
+    <input type="button" onclick="sextet()" value="Sextet" id="sextet"><br>
+    <input type="button" onclick="dualRep()" value="Dual Rep." id="dualRep"><br>
+    <input type="button" onclick="orbit()" value="Orbit" id="orbit"><br>
+    <input type="button" onclick="block()" value="Block" id="block"><br>
+
+<div class="clear">(See below for a summary of the theory)</div>
+<P> Let <I>&Omega;</I> denote the set of 24 positions of the MOG.  The set <I>P(&Omega;)</I> of subsets of &Omega; form a 24-dimensional
+    vector space over <I>F<sub>2</sub></I>, the field of 2 elements, with the group operation being symmetric difference.  The binary
+    Golay code <B>G</B> is a 12-dimensional subspace of <I>P(&Omega;)</I>, closed under complementation, with 1 subset of size 0, 759
+    subsets of size 8 (called <I>octads</I>), 2576 subsets of size 12 (called <I>dodecads</I>), 759 subsets of size 16, and 1 subset of
+    size 24.  See SPLAG, Ch. 11, for a construction of <B>G</B> on the MOG.  Any 5 elements of <I>&Omega;</I> lie in a unique octad; in
+    the above tool, if 5 elements are selected, then clicking on "Complete" will show the other 3 elements that complete the 5 selected
+    elements to an octad.  The Mathieu group <I>M<sub>24</sub></I> is the set of permutations of <I>&Omega;</I> preserving <B>G</B>.  It
+    is a simple group of order 24*23*22*21*20*16*3 = 244823040, and is quintuply transitive on <I>&Omega;</I>.</P>
+<P>
+Consider the quotient group <B>G*</B>=<I>P(&Omega;)/</I><B>G</B>.  Since <B>G</B> contains no nonempty subsets of size less than 8, it follows that if <I>S</I> and <I>T</I> are two subsets of <I>&Omega;</I> of size at most 4, then <I>S</I> and <I>T</I> lie in distinct cosets of <B>G*</B>, except possibly in the case when <I>S</I> and <I>T</I> are disjoint subsets of size 4.  Since any two subsets of size 4 in a coset must be disjoint, there can be at most 6 subsets of size 4 in a coset.  This accounts for at least
+<I>C(24,0)+C(24,1)+C(24,2)+C(24,3)+C(24,4)/6</I> cosets, but that number is <I>4096 = 2<sup>12</sup></I>, exactly the number of cosets in <B>G*</B>.  It follows that
+every coset of <B>G*</B> either contains a unique element of size at most 3, or else 6 disjoint subsets of size 4.  In the latter case, the union of any two of the
+subsets of size 4 (called <I>tetrads</I>) is in <B>G</B> and is therefore an octad; a set of 6 tetrads having this property is called a <I>sextet</I>.  Every tetrad
+lies in a unique sextet.  There are <I>C(24,4)/6</I> = 1771 = 7*11*23 sextets.  In the above tool, if a tetrad is selected, then clicking on "Sextet" will show all the tetrads in the sextet containing the selected tetrad.  For any subset of <I>&Omega;</I>, clicking on "Dual Rep." will replace the current subset with a minimal coset representative in <B>G*</B>.
+</P>
+
+<P>
+Given any <I>S</I> in <I>P(&Omega;)</I>, a minimal coset representative of <I>S</I> in <B>G*</B> can be computed by the following
+    algorithm.  If <I>S</I> has size at most 4, then we are done.  Otherwise, choose any 5 elements in <I>S</I> and complete it to
+    an octad <I>X</I> (SPLAG, Ch. 11 describes how to do octad completion).  Replace <I>S</I> with <I>S+X</I>, which lies in the
+    same coset as <I>S</I>.  Since <I>X</I> has at least 5 elements in common with <I>S</I>, in passing from <I>S</I> to <I>S+X</I>,
+    we lose at least 5 elements and gain at most 3.  Therefore we have reduced the size of <I>S</I>.  Repeat these steps until we
+    have a set of size at most 4.
+</P>
+<P>
+<I>M<sub>24</sub></I> acts on <I>P(&Omega;)</I>.  According to SPLAG, Ch. 10, section 2.6, a subset of size <I>n</I> &lt; 12 is
+    classified as <I>special</I> if it contains or is contained in an octad, <I>umbral</I> if it is contained in a dodecad (but not
+    an octad), and otherwise <I>transverse</I>.  These orbits of <I>P(&Omega;)</I> are denoted by <I>S<sub>n</sub></I>,
+    <I>U<sub>n</sub></I>, and <I>T<sub>n</sub></I> respectively.  A subset of size 12 is <I>umbral</I> if it is a dodecad,
+    <I>extraspecial</I> if it contains 3 octads, <I>special</I> if it contains exactly 1 octad, <I>penumbral</I> if it contains
+    exactly 11 points of a dodecad, and <I>transverse</I> otherwise.  These orbits of <I>P(&Omega;)</I> are denoted by
+    <I>U<sub>12</sub></I>, <I>S<sub>12</sub><sup>+</sup></I>, <I>S<sub>12</sub></I>, <I>U<sub>12</sub><sup>-</sup></I>,
+    and <I>T<sub>12</sub></I> respectively.  Subsets of size <I>n</I>&gt;12 are described by the same terms as their
+    complements, so that a set lies in <I>S<sub>n</sub></I>, <I>U<sub>n</sub></I>, or <I>T<sub>n</sub></I> if and only
+    if its complement lies in <I>S<sub>24-n</sub></I>, <I>U<sub>24-n</sub></I>, or <I>T<sub>24-n</sub></I>, respectively.</P>
+
+<P>
+The orbits of the action of <I>M<sub>24</sub></I> on <I>P(&Omega;)</I> can be distinguished by the following invariants.
+    Let <I>S</I> be an element of <I>P(&Omega;)</I>.  Obviously, the cardinality of <I>S</I> is an invariant.  Let <I>S*</I>
+    be the set of minimal coset representatives of <I>S</I> in <B>G*</B> (<I>S*</I> will have either one element of size
+    at most 3, or six elements of size 4).  The cardinality of the elements of <I>S*</I> is an invariant.  The multiset of
+    intersection sizes of each of the elements of <I>S*</I> with <I>S</I> is also an invariant.  It turns out that these
+    three invariants are sufficient to distinguish the orbits of <I>P(&Omega;)</I>, and form a complete set of invariants.
+    The table of invariants for each orbit of size between 6 and 12 is given below.  (For sets of size &lt; 6, there is only
+    one orbit of each size, by the quintuple transitivity of <I>M<sub>24</sub></I>.)
+</P>
+
+<table border="1">
+<tr><th>Class</th><th>Min coset rep size</th><th>Intersection sizes</th><th>Class</th><th>Min coset rep size</th><th>Intersection sizes</th></tr>
+<tr><td><I>S<sub>6</sub></I></td><td style="text-align:center">2</td><td style="text-align:center">0</td><td><I>T<sub>10</sub></I></td><td style="text-align:center">4</td><td style="text-align:center">3,3,1,1,1,1</td></tr>
+<tr><td><I>U<sub>6</sub></I></td><td style="text-align:center">4</td><td style="text-align:center">1,1,1,1,1,1</td><td><I>U<sub>10</sub></I></td><td style="text-align:center">2</td><td style="text-align:center">0</td></tr>
+<tr><td><I>S<sub>7</sub></I></td><td style="text-align:center">1</td><td style="text-align:center">0</td><td><I>S<sub>11</sub></I></td><td style="text-align:center">3</td><td style="text-align:center">3</td></tr>
+<tr><td><I>U<sub>7</sub></I></td><td style="text-align:center">3</td><td style="text-align:center">1</td><td><I>T<sub>11</sub></I></td><td style="text-align:center">3</td><td style="text-align:center">1</td></tr>
+<tr><td><I>S<sub>8</sub></I></td><td style="text-align:center">0</td><td style="text-align:center">0</td><td><I>U<sub>11</sub></I></td><td style="text-align:center">1</td><td style="text-align:center">0</td></tr>
+<tr><td><I>T<sub>8</sub></I></td><td style="text-align:center">2</td><td style="text-align:center">1</td><td><I>S<sub>12</sub><sup>+</sup></I></td><td style="text-align:center">4</td><td style="text-align:center">4,4,4</td></tr>
+<tr><td><I>U<sub>8</sub></I></td><td style="text-align:center">4</td><td style="text-align:center">2,2,2,2</td><td><I>S<sub>12</sub></I></td><td style="text-align:center">4</td><td style="text-align:center">4,2,2,2,2</td></tr>
+<tr><td><I>S<sub>9</sub></I></td><td style="text-align:center">1</td><td style="text-align:center">1</td><td><I>T<sub>12</sub></I></td><td style="text-align:center">4</td><td style="text-align:center">2,2,2,2,2,2</td></tr>
+<tr><td><I>T<sub>9</sub></I></td><td style="text-align:center">3</td><td style="text-align:center">2</td><td><I>U<sub>12</sub><sup>-</sup></I></td><td style="text-align:center">2</td><td style="text-align:center">1</td></tr>
+<tr><td><I>U<sub>9</sub></I></td><td style="text-align:center">3</td><td style="text-align:center">0</td><td><I>U<sub>12</sub></I></td><td style="text-align:center">0</td><td style="text-align:center">0</td></tr>
+<tr><td><I>S<sub>10</sub></I></td><td style="text-align:center">2</td><td style="text-align:center">2</td></tr>
+
+</table>
+
+<P>If <I>S</I> is an element of <I>P(&Omega;)</I>, let <I>Stab(S)</I> be the subgroup of <I>M<sub>24</sub></I> stabilizing
+    <I>S</I> as a set.  Consider the action of <I>Stab(S)</I> on <I>&Omega;</I>.  It turns out that two elements <I>x, y</I>
+    of <I>&Omega;</I>  lie in the same orbit of <I>Stab(S)</I> if and only if the subsets <I>S + {x}</I> and <I>S + {y}</I>
+    lie in the same orbit in the action of <I>M<sub>24</sub></I> on <I>P(&Omega;)</I>.  In SPLAG, Ch. 10, Figure 10.1,
+    there is a diagram indicating how many ways there are to remove or add an element from a given class of size <I>n</I>
+    to produce a given class of size <I>n-1</I> or <I>n+1</I>.  In the above tool, these orbits can be shown by clicking
+    the "Orbit" button.
+</P>
+<P>In some cases (including, but not limited to, those cases where a minimal coset representative
+    has size 4), the action of <I>Stab(S)</I> on <I>&Omega;</I> is imprimitive on some orbits, and the block decomposition
+    of these orbits can be shown by clicking the "Block" button.  (Note that for <I>T<sub>10</sub></I>, there are 2 block
+    decompositions for the orbit of size 12; only one of them is shown.)
+</P>
+<P>
+    A summary of the imprimitive orbits is given in
+    the table below.  An equation such as 20=5*4 means an orbit of size 20 which splits into 5 blocks of size 4.  If an
+    equation appears multiple times, that means there are multiple orbits which decompose into blocks in the indicated
+    way.  When not obvious, a class name appears (e.g. <I>U<sub>8</sub></I> instead of just 8) to indicate the class
+    to which an orbit or block belongs.
+</P>
+
+<table border="1">
+<tr><th>Class</th><th>Imprimitive orbits</th></tr>
+    <tr><td><I>S<sub>4</sub></I></td><td style="text-align:center">20=5*4</td></tr>
+    <tr><td><I>U<sub>6</sub></I></td><td style="text-align:center">18=6*3</td></tr>
+    <tr><td><I>U<sub>8</sub></I></td><td style="text-align:center"><I>U<sub>8</sub></I>=4*2, <I>U<sub>8</sub></I>=4*2, <I>S<sub>8</sub></I>=2*4</td></tr>
+    <tr><td><I>S<sub>10</sub></I></td><td style="text-align:center">14=7*2</td></tr>
+    <tr><td><I>T<sub>10</sub></I></td><td style="text-align:center"><I>S<sub>6</sub></I>=2*3, <I>S<sub>12</sub><sup>+</sup></I>=4*3=3*4 (two block decompositions)</td></tr>
+    <tr><td><I>U<sub>10</sub></I></td><td style="text-align:center"><I>U<sub>12</sub></I>=2*<I>S<sub>6</sub></I></td></tr>
+    <tr><td><I>S<sub>11</sub></I></td><td style="text-align:center"><I>S<sub>8</sub></I>=2*4, <I>S<sub>12</sub><sup>+</sup></I>=3*4</td></tr>
+    <tr><td><I>S<sub>12</sub><sup>+</sup></I></td><td style="text-align:center"><I>S<sub>12</sub><sup>+</sup></I>=3*4, <I>S<sub>12</sub><sup>+</sup></I>=3*4</td></tr>
+    <tr><td><I>S<sub>12</sub></I></td><td style="text-align:center"><I>S<sub>8</sub></I>=4*2, <I>S<sub>8</sub></I>=4*2</td></tr>
+    <tr><td><I>T<sub>12</sub></I></td><td style="text-align:center"><I>T<sub>12</sub></I>=6*2, <I>T<sub>12</sub></I>=6*2</td></tr>
+</table>
+<br>
+<div class="footer"><I>You may contact <A HREF="mailto:hwatheod@cs.stanford.edu">Theodore Hwa</A> with any questions or comments on this page.</I></div>
+</body>
+</html>
+
